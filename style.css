@@ -1,0 +1,167 @@
+#titulo-principal {
+    font-family: 'Arial', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #b22222
+}
+
+h2 {
+    color: #007acc
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+header, footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    gap: 5vw;
+    background-color: #444;
+    padding: 10px;
+}
+
+nav a {
+    color: #007acc;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #ff6600;
+}
+
+a {
+    color: #007acc;
+    text-decoration: none;
+    font-weight: bold
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    align-items: stretch;
+}
+
+section, article, aside {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+#sobre-mi {
+    grid-column: span 2;
+}
+
+#habilidades ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+}
+
+.habilidad {
+    color: green;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+section table {
+    display: block;
+    overflow-x: auto;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+@media (max-width: 768px) {
+    body {
+        background-color: #eaf6ff;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    main {
+        grid-template-columns: 1fr !important;
+    }
+
+    #sobre-mi {
+        grid-column: span 1;
+    }
+}
