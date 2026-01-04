@@ -66,15 +66,18 @@
 
         <section id="contacto">
             <h2>Contacto</h2>
-            <form>
+            <form id="contactForm">
                 <label for="nombre">Nombre:</label><br>
-                <input type="text" id="nombre" name="nombre"><br><br>
+                <input type="text" id="nombre" name="nombre">
+                <small id="errorNombre" class="errorForm"></small><br><br>
 
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email"><br><br>
+                <input type="email" id="email" name="email">
+                <small id="errorEmail" class="errorForm"></small><br><br>
 
                 <label for="mensaje">Mensaje:</label><br>
-                <textarea id="mensaje" name="mensaje"></textarea><br><br>
+                <textarea id="mensaje" name="mensaje"></textarea>
+                <small id="errorMensaje" class="errorForm"></small><br><br>
 
                 <button type="submit">Enviar</button>
             </form>
@@ -101,6 +104,466 @@
                 <li><a href="https://www.linkedin.com/in/renato-percca-5a5aaa211/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
             </ul>
         </footer>
+
+        <script>
+            const saludar = () => alert("Hola, bienvenido a mi portafolio 🚀");
+            saludar(); 
+            
+            // Variables básicas
+            const nombre = "Renato";
+            let edad = 28; // puedes cambiar este valor
+            const aprendiendo = true
+
+            // Mostrar en consola
+            console.log("Nombre:", nombre);
+            console.log("Edad:", edad);
+            console.log("¿Está aprendiendo?", aprendiendo);
+
+            // Usar variables en la página
+            const titulo = document.getElementById("titulo-principal");
+            titulo.textContent = "Hola, soy " + nombre + " 🚀";
+            const modoOscuro = true;
+
+            titulo.addEventListener("click", () => {
+                titulo.style.color = titulo.style.color === "red" ? "blue" : "red";
+            });
+
+            if (modoOscuro) {
+                titulo.style.color = "red";
+                //titulo.style.backgroundColor = "black";
+            } else {
+                titulo.style.color = "white";
+            }
+
+            
+            //localStorage.setItem("modoOscuro", modoOscuro);
+            //Recuperar
+            //const preferencia = localStorage.getItem("modoOscuro");
+            //if (preferencia === "true") {
+            //    document.body.classList.add.("dark-mode");
+            //}
+
+
+            const subtitulo1 = document.querySelector("h2");
+            subtitulo1.style.color = "purple";
+            subtitulo1.style.fontSize = "28px";
+            
+            //Cambiar imagen con variable
+            //const imagen = document.querySelector("img");
+            //imagen.setAttribute("alt", "Foto actualizada de Renato");
+            //imagen.src = "img/nueva-imagen.jpg";
+            //imagen.classList.add("destacado");
+
+            const seccion = document.getElementById("sobre-mi");
+            seccion.classList.add("destacado"); // añade clase
+            seccion.classList.remove("oculto"); // elimina clase
+
+            const boton = document.querySelector("button");
+
+            function mostrarMensaje() {
+                alert("Gracias por tu mensaje, Renato recibirá tu contacto pronto!");
+            }
+
+            boton.addEventListener("click", mostrarMensaje);
+
+            const nombreInput = document.getElementById("nombre");
+
+            nombreInput.addEventListener("focus", function() {
+                console.log("El usuario está escribiendo su nombre...");
+            })
+
+            const hora = new Date().getHours();
+            const saludo = document.createElement("p");
+
+            if (hora < 12) {
+                saludo.textContent = "Buenos días ☀️";
+            } else if (hora < 18) {
+                saludo.textContent = "Buenas tardes 🌤️";
+            } else {
+                saludo.textContent = "Buenas noches 🌙";
+            }
+
+            document.body.prepend(saludo);
+
+            let lenguaje = "Python";
+
+            switch (lenguaje) {
+                case "Python":
+                    console.log("Lenguaje favorito: Python 🐍");
+                    break;
+                case "JavaScript":
+                    console.log("Lenguaje favorito: JavaScript ⚡");
+                    break;
+                default:
+                    console.log("Otro lenguaje");
+            }
+
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", e => {
+                e.preventDefault(); // evita recargar la página
+
+                const nombre = document.getElementById("nombre").value;
+                const email = document.getElementById("email").value;
+                const mensaje = document.getElementById("mensaje").value;
+
+                console.log("Nombre:", nombre);
+                console.log("Email:", email);
+                console.log("Mensaje:", mensaje);
+
+                const resultadoForm = document.createElement("div");
+                resultadoForm.innerHTML = `
+                   <p><strong>Nombre:</strong> ${nombre}</p>
+                   <p><strong>Email:</strong> ${email}</p>
+                   <p><strong>Mensaje:</strong> ${mensaje}</p>
+                `;
+                document.getElementById("contacto").appendChild(resultadoForm);
+            });
+
+            form.addEventListener("submit", function(event) {
+                const nombre = document.getElementById("nombre").value;
+                const email = document.getElementById("email").value;
+                const mensaje = document.getElementById("mensaje").value;
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //formato básico de email
+
+                if (nombre === "" || !regex.test(email) || mensaje.length <10) {
+                    event.preventDefault();
+                    alert("Por favor complete correctamente todos los campos.");
+                } else {
+                    alert("Formulario enviado correctamente ✅");
+                }
+            });
+
+            const formVal = document.getElementById("contactForm")
+
+            const nombreVal = document.getElementById("nombre");
+            const emailVal = document.getElementById("email");
+            const mensajeVal = document.getElementById("mensaje");;
+
+            const errorNombreVal = document.getElementById("errorNombre");
+            const errorEmailVal = document.getElementById("errorEmail");
+            const errorMensajeVal = document.getElementById("errorMensaje");
+
+            //Validación en tiempo real
+            nombreVal.addEventListener("input", () => {
+                if (nombreVal.value.trim() === "") {
+                    errorNombreVal.textContent = "El nombre no puede estar vacío ❌";
+                } else {
+                    errorNombreVal.textContent = "";
+                }
+            });
+
+            emailVal.addEventListener("input", () => {
+                if (!emailVal.value.includes("@")) {
+                    errorEmailVal.textContent = "El email debe contener @ ❌";
+                } else {
+                    errorEmailVal.textContent = "";
+                }
+            });
+
+            mensajeVal.addEventListener("input", () => {
+                if (mensajeVal.value.trim().length < 10) {
+                    errorMensajeVal.textContent = "El mensaje debe tener al menos 10 caracteres ❌";
+                } else {
+                    errorMensajeVal.textContent = "";
+                }
+            });
+
+            //Validación final al enviar
+            formVal.addEventListener("submit", e => {
+                e.preventDefault();
+
+                if (
+                    nombreVal.value.trim() !== "" &&
+                    emailVal.value.includes("@") &&
+                    mensajeVal.value.trim().length >= 10
+                ) {
+                    alert("Formulario enviado correctamente ✅");
+                }   else {
+                    alert("Por favor corrigue los errores antes de enviar ❌");
+                }
+            });
+
+
+
+
+
+            const sobreMi = document.getElementById("sobre-mi");
+            const toggleBtn = document.createElement("button");
+            toggleBtn.textContent = "Mostrar/Ocultar Sobre mí";
+            document.body.prepend(toggleBtn);
+
+            toggleBtn.addEventListener("click", () => {
+                if (sobreMi.style.display === "none") {
+                    sobreMi.style.display = "block";
+                } else {
+                    sobreMi.style.display = "none";
+                }
+            });
+
+            const nav = document.querySelector("nav");
+            const menuBtn = document.createElement("button");
+            menuBtn.textContent = "☰ Menú";
+            document.body.prepend(menuBtn);
+
+            menuBtn.addEventListener("click", () => {
+                nav.classList.toggle("visible");
+            });
+
+            const habilidades = [
+                "Python (básico)",
+                "HTML y CSS (aprendiendo)",
+                "Desarrollo web (aprendiendo)",
+                "JavaScript",
+                "Ciberseguridad (Analista SOC junior)"
+            ];
+
+            habilidades.forEach(h => console.log("Habilidad:", h));
+
+            const habilidadesEstilizadas = habilidades.map(h => `⭐ ${h}`)
+            console.log(habilidadesEstilizadas)
+
+            const habilidadesWeb = habilidades.filter(h => h.includes("HTML") || h.includes("CSS"));
+            console.log(habilidadesWeb);
+
+            const totalCaracteres = habilidades.reduce((acc, h) => acc + h.length, 0);
+            console.log("Total de caracteres:   ", totalCaracteres);
+
+            const lista = document.querySelector("#habilidades ul");
+
+            lista.innerHTML = ""
+
+            habilidades.forEach(habilidad => {
+                const li = document.createElement("li");
+                li.textContent = habilidad;
+                li.classList.add("habilidad");
+                lista.appendChild(li);
+            });
+
+
+
+            //habilidades.forEach((habilidad, index) => {
+            //    console.log(`Habilidad ${index + 1}: ${habilidad}`);
+            //})
+
+            const main = document.querySelector("main");
+
+            const card = document.createElement("div");
+            card.className = "card";
+
+            const tituloCard = document.createElement("h3");
+            tituloCard.textContent = "Proyecto dinámico";
+
+            const descripcionCard = document.createElement("p");
+            descripcionCard.textContent = "Este proyecto fue generado con JavaScript usando DOM avanzado.";
+
+            card.appendChild(tituloCard);
+            card.appendChild(descripcionCard);
+
+            main.appendChild(card);
+
+            const proyectos = [
+                { titulo: "Portfolio", descripcion: "Mi primer portafolio web" },
+                { titulo: "Automatización", descripcion: "Scripts en Python" },
+                { titulo: "Mini App", descripcion: "Aplicación de DOM y LocalStorage" }
+            ];
+            localStorage.setItem("proyectos", JSON.stringify(proyectos));
+            const proyectosGuardados = JSON.parse(localStorage.getItem("proyectos"));
+            const mainProyectos = document.querySelector("mainProyectos");
+
+            proyectosGuardados.forEach(p => {
+                const cardProyectos = document.createElement("div");
+                cardProyectos.className = "card";
+                cardProyectos.innerHTML = `<h3>${p.titulo}</h3><p>${p.descripcion}</p>`;
+                main.appendChild(cardProyectos);
+            })
+
+
+            const aviso = document.createElement("p");
+            aviso.textContent = "⚡ Información actualizada dinámicamente";
+
+            sobreMi.parentNode.insertBefore(aviso, sobreMi);
+
+            aviso.remove()
+
+            //const habilidadesEnAprendizaje = habilidades.map(h => h +  " (aprendiendo)");
+            //console.log(habilidadesEnAprendizaje)
+
+            //const habilidadesFiltradas = habilidades.filter(h => h.includes("CSS")); 
+            //console.log(habilidadesFiltradas);
+
+            //const totalCaracteres = habilidades.reduce((acumulador, h) => acumulador + h.length, 0)
+            //console.log("Total de caracteres: ", totalCaracteres);
+
+            //habilidades 
+            //    .filter(h => h.includes("a")) // solo habilidades con la letra "a" 
+            //    .forEach(h => { 
+            //        const li = document.createElement("li");
+            //        li.textContent = h; 
+            //        li.classList.add("habilidad"); 
+            //        lista.appendChild(li); 
+            //    });
+
+            //for (let i = 0; i < habilidades.length; i++) {
+            //    console.log("Habilidad:", habilidades[i]);
+            //}
+
+            //for (const habilidad of habilidades) {
+            //    const li = document.createElement("li");
+            //    li.textContent = habilidad;
+            //    li.classList.add("habilidad");
+            //    lista.appendChild(li);
+            //}
+
+            const renato = {
+                nombre: "Renato",
+                edad: 28,
+                profesion: "Autodidacta en desarrollo web",
+                habilidades: ["Python", "HTML", "CSS", "JavaScript"],
+                contacto: {
+                    email: "perccarenato@gmail.com",
+                    linkedin: "https://www.linkedin.com/in/renato-percca-5a5aaa211/",
+                    github: "https://github.com/renatoapc"
+                }
+            };
+
+            // Mostrar en consola
+            for (const clave in renato) {
+                console.log(clave, ":", renato[clave]);
+            }
+
+            // Guardar objeto en LocalStorage
+            localStorage.setItem("usuario", JSON.stringify(renato))
+
+            const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+            console.log(usuarioGuardado.nombre); //devuelve solo la propiedad nombre la cual es Renato
+
+
+            function cargarProyectos() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (proyectos.length > 0) {
+                            resolve(proyectos);
+                        }   else {
+                            reject("No se encontraron proyectos");
+                        }
+                    }, 1500);
+            });
+            }
+
+            cargarProyectos()
+                .then(proyectos => {
+                    proyectos.forEach(p => {
+                        const cardProyectos = document.createElement("div");
+                        cardProyectos.className = "card";
+                        cardProyectos.innerHTML = `<h3>${p.titulo}</h3><p>${p.descripcion}</p>`;
+                        main.appendChild(cardProyectos);
+                    });
+                })
+                .catch(error => console.error(error));
+
+            async function mostrarProyectos() {
+                try {
+                    const proyectos = await cargarProyectos();
+
+                proyectos.forEach(p => {
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `<h3>${p.titulo}</h3><p>${p.descripcion}</p>`;
+                    main.appendChild(card);
+                });
+                } catch (error) {
+                console.error(error);
+            }
+            }
+
+            mostrarProyectos()
+
+            async function cargarUsuarios() {
+                try {
+                    const respuesta = await fetch("https://jsonplaceholder.typicode.com/users");
+                    if (!respuesta.ok) throw new Error("Error al cargar usuarios");
+
+                    const usuarios = await respuesta.json();
+
+                    usuarios.forEach(u => {
+                        const card = document.createElement("div");
+                        card.className = "card";
+                        card.innerHTML = `
+                           <h3>${u.name}</h3>
+                           <p>Email: ${u.email}</p>
+                           <p>Ciudad: ${u.address.city}</p>
+                           `;
+                        main.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+            cargarUsuarios()
+
+            async function cargarProyectos1() {
+                try{
+                    const res = await fetch ("https://jsonplaceholder.typicode.com/posts");
+                    if (!res.ok) throw new Error("Error al cargar proyectos ❌");
+
+                    const proyectos1 = await res.json();
+
+                    proyectos.slice(0, 5).forEach(p => {
+                        const card = document.createElement("div");
+                        card.className = "card";
+                        card.innerHTML = `<h3>${p.title}</h3><p>${p.body}</p>`;
+                        main.appendChild(card);
+                    });
+                }   catch (error) {
+                    const aviso = document.createElement("p");
+                    aviso.textContent = "⚠️ No se pudieron cargar los proyectos. Intenta más tarde.";
+                    aviso.style.color = "red";
+                    main.appendChild(aviso);
+
+                    console.error(error.message);
+                }
+            }
+
+            cargarProyectos1();
+
+            const cargarProyectos2 = async () => {
+                try {
+                    const res2 = await fetch("https://jsonplaceholder.typicode.com/posts");
+                    if (!res2.ok) throw new Error("Error al cargar proyectos ❌");
+
+                    const proyectos2 = await res2.json();
+                    return proyectos2.slice(0, 6);
+                }   catch (error) {
+                    console.error(error.message);
+                    return [];
+                }
+            };
+
+            const mostrarProyectos2 = proyectos2 => {
+                proyectos2.forEach(p => {
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `<h3>${p.title}</h3><p>${p.body}</p>`;
+                    main.appendChild(card);
+                });
+            };
+
+            (async () => {
+                const proyectosCargados2 = await cargarProyectos2();
+                mostrarProyectos2(proyectosCargados2);
+
+                const proyectosFiltrados = proyectosCargados2.filter(p => p.title.includes("e"));
+                console.log("Proyectos filtrados:", proyectosFiltrados);
+            })();
+
+
+
+
+
+
+        </script>
 
     </body>
     </html>
